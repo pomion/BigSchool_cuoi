@@ -11,6 +11,10 @@ namespace BigSchool.Models
     {
         public DbSet<Course> Courses { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Following> Followings { get; set; }
+
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -20,5 +24,25 @@ namespace BigSchool.Models
         {
             return new ApplicationDbContext();
         }
+        protected override void OnModelCreating(DbModelBuilder modekBuilder)
+        {
+            modekBuilder.Entity<Attendance>()
+                .HasRequired(a => a.Course)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modekBuilder.Entity<ApplicationUser>()
+                .HasMany(a => a.Followers)
+                .WithRequired(f => f.Followee)
+                .WillCascadeOnDelete(false);
+
+            modekBuilder.Entity<ApplicationUser>()
+                .HasMany(a => a.Followees)
+                .WithRequired(f => f.Follower)
+                .WillCascadeOnDelete(false); 
+
+            base.OnModelCreating(modekBuilder);
+        }
+
     }
 }
