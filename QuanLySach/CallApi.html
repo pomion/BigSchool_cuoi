@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <title>Quản Lý Sách</title>
@@ -7,12 +7,12 @@
 <body>
     <div>
         <h2>Danh Sách</h2>
-        <ul id ="sachs"/>
+        <ul id="sachs" />
     </div>
     <div>
         <h2>Tìm kiếm bằng mã sách</h2>
         <input type="text" id="prodId" size="5"/>
-        <input type="button" value="Seach" onclick="find();"/>
+        <input type="button" value="Search" onclick="find();"/>
         <p id="sach"/>
     </div>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery-2.0.3.min.js"></script>
@@ -22,12 +22,12 @@
             $.getJSON(uri)
                 .done(function (data) {
                     $.each(data, function (key, item) {
-                        $('<li>', { text: formatItem(item) }).appendTo($('#sach'));
+                        $('<li>', { text: formatItem(item) }).appendTo($('#sachs'));
                     });
                 });
         });
         function formatItem(item) {
-            return item.Title + ':$' + item.Price;
+            return item.Title + ': $' + item.Price;
         }
         function find() {
             var id = $('#prodId').val();
@@ -35,8 +35,8 @@
                 .done(function (data) {
                     $('#sach').text(formatItem(data));
                 })
-                .fail(function (data) {
-
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#sach').text('Error:' + err);
                 });
         }
     </script>
