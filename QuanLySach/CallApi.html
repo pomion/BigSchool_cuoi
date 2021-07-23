@@ -6,18 +6,19 @@
 </head>
 <body>
     <div>
-        <h2>Danh Sách</h2>
+        <h2>Danh sách</h2>
         <ul id="sachs" />
     </div>
     <div>
         <h2>Tìm kiếm bằng mã sách</h2>
-        <input type="text" id="prodId" size="5"/>
-        <input type="button" value="Search" onclick="find();"/>
-        <p id="sach"/>
+        <input type="text" id="prodId" size="5" />
+        <input type="button" value="Search" onclick="find();" />
+        <p id="sach" />
     </div>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery-2.0.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>-->
     <script>
-        var uri = 'api/sach';
+        var uri = 'api/sach/GetAll';
         $(document).ready(function () {
             $.getJSON(uri)
                 .done(function (data) {
@@ -31,12 +32,12 @@
         }
         function find() {
             var id = $('#prodId').val();
-            $.getJSON(uri + '/' + id)
+            $.getJSON("api/sach/GetSach/" + id)
                 .done(function (data) {
                     $('#sach').text(formatItem(data));
                 })
                 .fail(function (jqXHR, textStatus, err) {
-                    $('#sach').text('Error:' + err);
+                    $('#sach').text('Error: ' + err);
                 });
         }
     </script>
