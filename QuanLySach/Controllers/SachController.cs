@@ -18,6 +18,12 @@ namespace QuanLySach.Controllers
             new Sach { Id = 2, Title = "Cho Tôi Xin Một Vé Về Tuổi Thơ", 
                 AuthorName = "Phan Văn Tuấn",
                 Content = "Truyện Kể Về Tuổi Thơ ...", Price = 3.75M},
+            new Sach { Id = 3, Title = "Tôi Thấy Hoa Vàng Trong Ngân Hàng",
+                AuthorName = "Nguyễn Nhật Ánh", Price = 1.7M,
+                Content="Truyện Kể Về Tuổi Thơ ..."},
+            new Sach { Id = 4, Title = "Cho Tôi Xin Một Vé Về Tắm Ao",
+                AuthorName = "Phan Văn Tuấn",
+                Content = "Truyện Kể Về Tuổi Thơ ...", Price = 3.75M},
         };
         public IEnumerable<Sach> GetAll()
         {

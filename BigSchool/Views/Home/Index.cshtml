@@ -16,21 +16,50 @@
             </div>
             <div class="details">
                 <span class="lecturer">
-                    @course.Lecturer.Name
-                    @if (Model.ShowAction)
-                    {
-                        <button class="btn btn-link btn-sm js-toggle-attendance">lecturer</button>
-                    }
+                    @course.Lecturer.Name 
+                    <button class="btn btn-default btn-sm js-toggle-follow" data-user-id="@course.LecturerId">follow</button> 
                 </span>
                 <span class="category">
                     @course.Category.Name
-                </span>
-                @if (Model.ShowAction)
-                {
-                    <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
-                }
+                </span> 
+                <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button> 
             </div>
         </li>
     }
-</ul>    
+</ul>
+@section scripts
+{
+    <script>
+        $(document).ready(function ()
+        {
+            $(".js-toggele-attendance").click(function (e)
+            {
+                var button = $(e.target);
+                $.post("/api/attendances", { courseId: button.attr("data-course-id") })
+                    .done(function () {
+                        button
+                            .removeClass("btn-default")
+                            .addClass("btn-info")
+                            .text("going");
+                    })
+                    .fail(function ()
+                    {
+                        alert("Something failed!");
+                    });
+            });
+            $(".js-toggele--follow").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/followings", { courseId: button.attr("data-course-id") })
+                    .done(function () {
+                        button
+                            .removeClass("Following")
+                    })
+                    .fail(function () {
+                        alert("Something failed!");
+                    });
+            });
+        });
+    </script>
+    
+    }
     
